@@ -1,5 +1,9 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
+import Adapters from 'next-auth/adapters'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -41,6 +45,7 @@ export default NextAuth({
       clientSecret: process.env.TWITTER_SECRET,
     }),
   ],
+  adapter: Adapters.Prisma.Adapter({ prisma }),
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
   // https://next-auth.js.org/configuration/databases
   //
